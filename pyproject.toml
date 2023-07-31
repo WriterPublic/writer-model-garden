@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "writer-model-garden"
+version = "0.1.0"
+description = "Docker image for deploying writer models to Model Garden"
+authors = ["Mark Saad <mark@writer.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.11"
+transformers = "^4.30.2"
+torch = "^2.0.1"
+fastapi = "^0.100.0"
+uvicorn = "^0.23.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
