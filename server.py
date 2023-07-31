@@ -28,7 +28,7 @@ model = None
 
 def download_model():
     global model
-    hf_model = os.environ.get("HF_MODEL", "Writer/palmyra-base")
+    hf_model = os.environ.get("HF_MODEL", "Writer/palmyra-small")
     model = pipeline(model = hf_model, task = "text-generation")
 
 
