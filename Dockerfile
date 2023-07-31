@@ -16,17 +16,18 @@ RUN $HOME/.local/bin/poetry export --without-hashes -f requirements.txt >> requi
 # Model Garden Deploy Image
 FROM nvcr.io/nvidia/pytorch:23.06-py3 AS deploy
 
-# Set the model name
+# Install requirements
+COPY --from=base /app/requirements.txt /app/
+RUN python -m pip install --no-cache-dir -r requirements.txt
+
+# Set environment variables
 ENV HF_MODEL="Writer/palmyra-small"
+ENV INFER_PORT=7080
 
 # Copy source files
 WORKDIR /app
 COPY server.py .
 COPY main.py .
-
-# Install requirements
-COPY --from=base /app/requirements.txt /app/
-RUN python -m pip install --no-cache-dir -r requirements.txt
 
 # Download and run the model
 CMD [ "python", "main.py" ]

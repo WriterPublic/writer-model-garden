@@ -2,10 +2,10 @@ import os
 import uvicorn
 
 if __name__ == "__main__":
-    print("env variable passed: ", os.environ.get("DUMMY"))
+    infer_port = os.environ.get("INFER_PORT", 7080)
     uvicorn.run(
         "server:app",
         host="0.0.0.0",
-        port=5000,
+        port=infer_port,
         workers=1,
     )
