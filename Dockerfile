@@ -17,6 +17,7 @@ RUN $HOME/.local/bin/poetry export --without-hashes -f requirements.txt >> requi
 FROM nvcr.io/nvidia/pytorch:23.06-py3 AS deploy
 
 # Install requirements
+WORKDIR /app
 COPY --from=base /app/requirements.txt /app/
 RUN python -m pip install --no-cache-dir -r requirements.txt
 
@@ -25,7 +26,6 @@ ENV HF_MODEL="Writer/palmyra-small"
 ENV INFER_PORT=7080
 
 # Copy source files
-WORKDIR /app
 COPY server.py .
 COPY main.py .
 
