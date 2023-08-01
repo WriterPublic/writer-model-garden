@@ -1,4 +1,5 @@
 import os
+import logging
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -23,20 +24,16 @@ class HealthStatus(BaseModel):
 # Create app
 app = FastAPI()
 
-# Download model if not already downloaded
-model = None
-
-def download_model():
-    global model
-    hf_model = os.environ.get("HF_MODEL", "Writer/palmyra-small")
-    model = pipeline(model = hf_model, task = "text-generation")
+# Download model
+logging.info("Starting model download")
+hf_model = os.environ.get("HF_MODEL", "Writer/palmyra-small")
+model = pipeline(model = hf_model, task = "text-generation")
+logging.info("Model Downloaded")
 
 
 @app.post("/generate", response_model=ModelResponse)
 @app.post("/", response_model=ModelResponse)
 def generate(request: ModelRequest) -> ModelResponse:
-    if not model:
-        download_model()
     out = model(request.text)[0]["sequence"]
     return ModelResponse(out=out)
 
