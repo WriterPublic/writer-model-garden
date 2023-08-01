@@ -7,7 +7,7 @@ ENV POETRY_VIRTUALENVS_IN_PROJECT=true
 
 # Copy source files
 WORKDIR /app
-COPY . .
+COPY pyproject.toml .
 
 # Lock dependencies
 RUN $HOME/.local/bin/poetry install

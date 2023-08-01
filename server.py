@@ -34,8 +34,9 @@ logging.info("Model Downloaded")
 @app.post("/generate", response_model=ModelResponse)
 @app.post("/", response_model=ModelResponse)
 def generate(request: ModelRequest) -> ModelResponse:
-    out = model(request.text)[0]["sequence"]
-    return ModelResponse(out=out)
+    out = model(request.text)
+    out_text = out[0].get("generated_text")
+    return ModelResponse(out=out_text)
 
 
 @app.post("/health", response_model=HealthStatus)
@@ -44,5 +45,3 @@ def generate(request: ModelRequest) -> ModelResponse:
 @app.get("/", response_model=HealthStatus)
 def health_check() -> HealthStatus:
     return HealthStatus(up=model is not None)
-
-
