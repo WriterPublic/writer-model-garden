@@ -27,7 +27,7 @@ app = FastAPI()
 
 # Download model
 logging.info("Starting model download")
-hf_model = os.environ.get("HF_MODEL", "Writer/palmyra-small")
+hf_model = os.environ.get("HF_MODEL", "Writer/palmyra-base")
 model = pipeline(model = hf_model, task = "text-generation")
 logging.info("Model Downloaded")
 
