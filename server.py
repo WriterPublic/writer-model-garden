@@ -14,7 +14,7 @@ class ModelRequest(BaseModel):
 
 # Model output text
 class ModelResponse(BaseModel):
-    generated_text: List[str]
+    predictions: List[Dict]
 
 
 # Check service status
@@ -37,8 +37,8 @@ logging.info("Model Downloaded")
 def generate(request: ModelRequest) -> ModelResponse:
     prompts = [i["text"] for i in request.instances]
     outputs = model(prompts)
-    generated_text = [out[0]["generated_text"] for out in outputs]
-    return ModelResponse(generated_text=generated_text)
+    predictions = [out[0] for out in outputs]
+    return ModelResponse(predictions=predictions)
 
 
 @app.post("/health", response_model=HealthStatus)
