@@ -14,7 +14,7 @@ class ModelRequest(BaseModel):
 
 # Model output text
 class ModelResponse(BaseModel):
-    generated_text: List[Dict]
+    generated_text: List[str]
 
 
 # Check service status
@@ -36,8 +36,8 @@ logging.info("Model Downloaded")
 @app.post("/", response_model=ModelResponse)
 def generate(request: ModelRequest) -> ModelResponse:
     prompts = [i["text"] for i in request.instances]
-    out = model(prompts)
-    generated_text = [o[0] for o in out]
+    outputs = model(prompts)
+    generated_text = [out[0]["generated_text"] for out in outputs]
     return ModelResponse(generated_text=generated_text)
 
 
