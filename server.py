@@ -1,5 +1,6 @@
 import os
 import logging
+from typing import List, Dict
 
 from fastapi import FastAPI
 from pydantic import BaseModel
@@ -8,12 +9,12 @@ from transformers import pipeline
 
 # Model input text
 class ModelRequest(BaseModel):
-    text: str
+    instances: List[Dict]
 
 
 # Model output text
 class ModelResponse(BaseModel):
-    out: str
+    generated_text: List[Dict]
 
 
 # Check service status
@@ -34,9 +35,10 @@ logging.info("Model Downloaded")
 @app.post("/generate", response_model=ModelResponse)
 @app.post("/", response_model=ModelResponse)
 def generate(request: ModelRequest) -> ModelResponse:
-    out = model(request.text)
-    out_text = out[0].get("generated_text")
-    return ModelResponse(out=out_text)
+    prompts = [i["text"] for i in request.instances]
+    out = model(prompts)
+    generated_text = [o[0] for o in out]
+    return ModelResponse(generated_text=generated_text)
 
 
 @app.post("/health", response_model=HealthStatus)
