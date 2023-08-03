@@ -22,7 +22,8 @@ COPY --from=base /app/requirements.txt /app/
 RUN python -m pip install --no-cache-dir -r requirements.txt
 
 # Set environment variables
-ENV HF_MODEL="Writer/palmyra-base"
+ARG HF_MODEL_ARG
+ENV HF_MODEL=$HF_MODEL_ARG
 ENV INFER_PORT=7080
 
 # Copy source files
