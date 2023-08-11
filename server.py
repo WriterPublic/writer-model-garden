@@ -10,6 +10,8 @@ from transformers import pipeline
 # Model input text
 class ModelRequest(BaseModel):
     instances: List[Dict]
+    max_new_tokens: int = 200
+    temperature: float = 0.2
 
 
 # Model output text
@@ -36,7 +38,9 @@ logging.info("Model Downloaded")
 @app.post("/", response_model=ModelResponse)
 def generate(request: ModelRequest) -> ModelResponse:
     prompts = [i["text"] for i in request.instances]
-    outputs = model(prompts)
+    outputs = model(prompts,
+                    max_new_tokens = request.max_new_tokens,
+                    temperature = request.temperature)
     predictions = [out[0] for out in outputs]
     return ModelResponse(predictions=predictions)
 
