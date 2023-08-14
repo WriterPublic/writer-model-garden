@@ -38,10 +38,18 @@ logging.info("Model Downloaded")
 def generate(request: ModelRequest) -> ModelResponse:
     prompts = [i["text"] for i in request.instances]
     max_new_tokens = request.parameters.get("max_new_tokens", 200)
-    temperature = request.parameters.get("temperature", 0.2)
+    temperature = request.parameters.get("temperature", 0.8)
+    # temperature has to be a positive float
+    temperature = 0.001 if temperature < 0.001 else temperature
+    top_k = request.parameters.get("top_k", 50)
+    top_p = request.parameters.get("top_p", 0.95)
+    do_sample = request.parameters.get("do_sample", True)
     outputs = model(prompts,
                     max_new_tokens = max_new_tokens,
-                    temperature = temperature)
+                    temperature = temperature,
+                    top_k = top_k,
+                    top_p = top_p,
+                    do_sample = do_sample)
     predictions = [out[0] for out in outputs]
     return ModelResponse(predictions=predictions)
 
