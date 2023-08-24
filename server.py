@@ -5,7 +5,7 @@ from typing import List, Dict
 
 from fastapi import FastAPI
 from pydantic import BaseModel
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import pipeline
 
 
 # Model input text
@@ -36,8 +36,7 @@ logger.info(result)
 
 hf_model = os.environ.get("MODEL_ID")
 logger.info(f"Starting model download {hf_model}")
-tokenizer = AutoTokenizer.from_pretrained(hf_model)
-model = AutoModelForCausalLM.from_pretrained(hf_model)
+model = pipeline(model = hf_model, task = "text-generation")
 logger.info("Model Downloaded")
 
 
@@ -53,10 +52,13 @@ def generate(request: ModelRequest) -> ModelResponse:
     top_p = request.parameters.get("top_p", 0.95)
     do_sample = request.parameters.get("do_sample", True)
 
-    inputs = tokenizer(text, return_tensors="pt").to(model.device)
-    outputs = model.generate(input_ids=inputs['input_ids'], attention_mask=inputs['attention_mask'], max_new_tokens = max_new_tokens + 1, temperature = temperature, top_k = top_k, top_p = top_p, do_sample = do_sample)
-    encoded_results = [out[0] for out in outputs]
-    predictions = [{"generated_text": tokenizer.decode(e, skip_special_tokens=True)} for e in encoded_results]
+    outputs = model(text,
+                    max_new_tokens = max_new_tokens,
+                    temperature = temperature,
+                    top_k = top_k,
+                    top_p = top_p,
+                    do_sample = do_sample)
+    predictions = [out[0] for out in outputs]
     return ModelResponse(predictions=predictions)
 
 
