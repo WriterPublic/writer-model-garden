@@ -35,8 +35,6 @@ RUN git apply /app/hf_transformers_lazy_download.patch
 RUN pip install -e .
 
 # Set environment variables
-ARG HF_MODEL_ARG
-ENV HF_MODEL=$HF_MODEL_ARG
 ENV INFER_PORT=7080
 
 # Copy source files

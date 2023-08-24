@@ -34,11 +34,11 @@ logger.info("Printing Disk space stats")
 result = subprocess.run(['df', '-kh'], stdout=subprocess.PIPE)
 logger.info(result)
 
-hf_model = os.environ.get("HF_MODEL")
-logging.info(f"Starting model download {hf_model}")
+hf_model = os.environ.get("MODEL_ID")
+logger.info(f"Starting model download {hf_model}")
 tokenizer = AutoTokenizer.from_pretrained(hf_model)
 model = AutoModelForCausalLM.from_pretrained(hf_model)
-logging.info("Model Downloaded")
+logger.info("Model Downloaded")
 
 
 @app.post("/generate", response_model=ModelResponse)
@@ -56,7 +56,6 @@ def generate(request: ModelRequest) -> ModelResponse:
     inputs = tokenizer(text, return_tensors="pt").to(model.device)
     outputs = model.generate(input_ids=inputs['input_ids'], attention_mask=inputs['attention_mask'], max_new_tokens = max_new_tokens + 1, temperature = temperature, top_k = top_k, top_p = top_p, do_sample = do_sample)
     encoded_results = [out[0] for out in outputs]
-    print(encoded_results)
     predictions = [{"generated_text": tokenizer.decode(e, skip_special_tokens=True)} for e in encoded_results]
     return ModelResponse(predictions=predictions)
 
