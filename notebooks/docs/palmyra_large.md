@@ -15,7 +15,7 @@ Palmyra Large is extremely powerful while being extremely fast. This model excel
 
 This model can be used in a notebook. Click Open notebook to use the model in Colab.
 
-Following the example in the notebook, Camel-5B will be uploaded to Model Registry and deployed to an endpoint in Vertex AI. After the deployment is successful, you can use vertex online predictions for text generation. The notebook shows an example of that.
+Following the example in the notebook, Palmyra Large will be uploaded to Model Registry and deployed to an endpoint in Vertex AI. After the deployment is successful, you can use vertex online predictions for text generation. The notebook shows an example of that.
 
 It's easy to use the endpoint where we just deployed the model for online prediction anywhere. All you need is a reference to the endpoint, which you can get using one line of code:
 
