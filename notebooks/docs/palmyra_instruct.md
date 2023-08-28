@@ -20,11 +20,6 @@ datasets:
 - **Finetuned from model:** [Palmyra-20B](https://huggingface.co/Writer/palmyra-large).
 
 
-<style>
-img {
- display: inline;
-}
-</style>
 
 
 ## Model Description
