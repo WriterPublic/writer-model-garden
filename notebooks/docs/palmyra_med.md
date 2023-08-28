@@ -29,3 +29,11 @@ The model may not operate efficiently beyond the confines of the healthcare fiel
 Since it has not been subjected to practical scenarios, its real-time efficacy and precision remain undetermined.
 Under no circumstances should it replace the advice of a medical professional, and it must be regarded solely as a tool for research purposes.
 
+
+### Out-of-Scope Use
+
+Production use without adequate assessment of risks and mitigation; any use cases which may be considered irresponsible or harmful. 
+
+### Bias
+
+Palmyra Med is mostly trained on English data, and will not generalize appropriately to other languages. Furthermore, as it is trained on a large-scale corpora representative of the web, it will carry the stereotypes and biases commonly encountered online.

@@ -38,3 +38,12 @@ InstructPalmyra-20b was trained on Writer’s custom dataset.
 InstructPalmyra's core functionality is to take a string of text and predict the next token. While language models are widely used for other tasks, there are many unknowns in this work. When prompting InstructPalmyra, keep in mind that the next statistically likely token is not always the token that produces the most "accurate" text. Never rely on InstructPalmyra to produce factually correct results.
 
 InstructPalmyra was trained on Writer’s custom data. As with all language models, it is difficult to predict how InstructPalmyra will respond to specific prompts, and offensive content may appear unexpectedly. We recommend that the outputs be curated or filtered by humans before they are released, both to censor undesirable content and to improve the quality of the results.
+
+
+### Out-of-Scope Use
+
+Production use without adequate assessment of risks and mitigation; any use cases which may be considered irresponsible or harmful. 
+
+### Bias
+
+InstructPalmyra-20b is mostly trained on English data, and will not generalize appropriately to other languages. Furthermore, as it is trained on a large-scale corpora representative of the web, it will carry the stereotypes and biases commonly encountered online.

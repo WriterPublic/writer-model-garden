@@ -1,15 +1,19 @@
 # Palmyra Large 20B
-Causal Language Model (CLM) that excels at text generation, sentiment classification, and summarization.
+Palmyra-Large is a 20B parameters causal decoder-only model built by [Writer](https://www.Writer.com) and trained on +800B tokens of [Palmyra-Index-Data](https://huggingface.co/datasets/Writer/palmyra-data-index) enhanced with curated corpora.
 
 
 ## Overview
 
-Palmyra-Large was primarily pre-trained with English text. Note that there is still a trace amount of non-English data present within the training corpus that was accessed through CommonCrawl. A causal language modeling (CLM) objective was utilized during the process of the model's pretraining. Similar to GPT-3, Palmyra Large is a member of the same family of models that only contain a decoder. As a result, it was pre-trained utilizing the objective of self-supervised causal language modeling. Palmyra Large uses the prompts and general experimental setup from GPT-3 in order to conduct its evaluation per GPT-3.
+Palmyra-Large was primarily pre-trained with English text. Note that there is still a trace amount of non-English data present within the training corpus that was accessed through CommonCrawl. A causal language modeling (CLM) objective was utilized during the process of the model's pretraining. Similar to GPT-3, Palmyra Large is a member of the same family of models that only contain a decoder. As a result, it was pre-trained utilizing the objective of self-supervised causal language modeling.
 
 
 ## Use case
 Palmyra Large is extremely powerful while being extremely fast. This model excels at many nuanced tasks such as sentiment classification and summarization.
+### Direct Use
 
+Research on large language models; as a foundation for further specialization and finetuning for specific usecases (e.g., summarization, text generation, chatbot, etc.)
+
+We recommend users of Palmyra-Large-20B to consider finetuning it for the specific set of tasks of interest, and for guardrails and appropriate precautions to be taken for any production use.
 
 ## Documentation
 
@@ -39,3 +43,6 @@ Palmyra Large learns an inner representation of the English language that can be
 Palmyra Large’s core functionality is to take a string of text and predict the next token. While language models are widely used for other tasks, there are many unknowns in this work. When prompting Palmyra Large, keep in mind that the next statistically likely token is not always the token that produces the most "accurate" text. Never rely on Palmyra Large to produce factually correct results.
 
 Palmyra Large was trained on Writer’s custom data. As with all language models, it is difficult to predict how Palmyra Large will respond to specific prompts, and offensive content may appear unexpectedly. We recommend that the outputs be curated or filtered by humans before they are released, both to censor undesirable content and to improve the quality of the results.
+
+Palmyra-large-20B is trained mostly on English with limited capabilities also in German, Spanish, French, Swedish. It will not generalize appropriately to other languages. Furthermore, as it is trained on a large-scale corpora representative of the web, it will carry the stereotypes and biases commonly encountered online.
+

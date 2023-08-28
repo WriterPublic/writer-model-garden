@@ -2,12 +2,6 @@
 
 Instruction-following large language model suitable for generating contextually appropraite responses.
 
-<style>
-img {
- display: inline;
-}
-</style>
-
 
 ## Overview
 
